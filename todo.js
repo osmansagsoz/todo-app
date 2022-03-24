@@ -61,7 +61,7 @@ function markAsComplete(id) {
     doneTodo.remove();
     doneList.appendChild(doneTodo);
     emptyState.classList.add('empty');
-    // todoList.dispatchEvent(new CustomEvent('todosUpdated'));
+    todoList.dispatchEvent(new CustomEvent('todosUpdated'));
   }
 
 function deleteTodo(todoId) {
@@ -74,7 +74,23 @@ function deleteTodo(todoId) {
        subHeader.textContent = 'She done already done had herses!';
         subP.textContent = '';
      }
+     
 }
+
+function mirrorToLocalStorage() {
+    console.info('Saving to localstorage');
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+  
+  function restoreFromLocalStorage() {
+    console.info('Restoring from LS');
+    const lsTodos = JSON.parse(localStorage.getItem('todos'));
+    if (lsTodos.length) {
+      todos.push(...lsTodos);
+      todoList.dispatchEvent(new CustomEvent('itemsUpdated'));
+    }
+  }
+  
 
 todoForm.addEventListener('submit', addTodo);
 
@@ -96,3 +112,6 @@ todoList.addEventListener('click', function(e) {
       }
   });
 
+  todoList.addEventListener('todosUpdated', mirrorToLocalStorage);
+
+restoreFromLocalStorage();
