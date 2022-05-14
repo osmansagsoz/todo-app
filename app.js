@@ -36,6 +36,7 @@ export function editTodo() {
 }
 
 export function getTodo() {
+  // for getting a new todo you need to enter a number between 1-200 in input and click get todo button cause api works with id
   const query = input.value;
   fetch(`https://jsonplaceholder.typicode.com/todos/${query}`)
     .then((response) => response.json())
