@@ -5,3 +5,5 @@ export const doneList = document.querySelector('.todo-list-done');
 export const emptyState = document.querySelector('.empty-state');
 export const subHeader = document.querySelector('.sub');
 export const subP = document.querySelector('.subP');
+export const getButton = document.querySelector('.get-todo');
+export const editButton = document.querySelector('.edit-todo');
