@@ -91,6 +91,34 @@ li {
     justify-content: flex-start;
 }
 
+/* loading state */
+
+.hide-loader {
+    display: none;
+}
+
+.loader {
+    height: 40px;
+    transform-origin: bottom center;
+    animation: rotate 1s linear infinite;
+}
+
+.circle {
+    display: inline-block;
+    background-color: var(--bblue);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: grow 1.5s linear infinite;
+    margin: -20px;
+}
+
+.circle:nth-child(2) {
+    background-color: var(--swhite);
+    animation-delay: 0.2s;
+}
+
 /* text design */
 
 .js-input {
@@ -242,6 +270,18 @@ footer h3 {
 
     100% {
         transform: translateX(0);
+    }
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes grow {
+    50% {
+        transform: scale(1);
     }
 }
 

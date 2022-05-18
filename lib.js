@@ -1,12 +1,13 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/extensions */
 import {
-  doneList, emptyState, subHeader, subP, todoList
+  doneList, emptyState, loader, subHeader, subLine, subP, todoList
 } from './elements.js';
 import { deleteFromApi, postTodo } from './app.js';
 
 export let todos = [];
 
-export function addTodo(e) {
+export async function addTodo(e) {
   e.preventDefault();
   const title = e.currentTarget.todo.value;
   console.log(title);
@@ -24,9 +25,34 @@ export function addTodo(e) {
 
   todoList.dispatchEvent(new CustomEvent('todosUpdated'));
 
-  renderTodo(todo);
+  console.log('start posting todo');
+  subLine.classList.remove("fa-solid", "fa-align-center");
+  loader.classList.remove("hide-loader");
 
-  postTodo(todo);
+  // postTodo(todo, (error, result) => {
+  //   console.log('posting todo');
+  //   if(error) {
+  //     console.log('Something went wrong!');
+  //   } else {
+  //     renderTodo(result);
+  //   }
+  // });
+
+  // postTodo2(todo)
+  // .then(result => renderTodo(result))
+  // .catch(err => console.log('error'));
+
+  try {
+    const result = await postTodo(todo);
+    renderTodo(result);}
+  catch(error) {
+    console.log('error');
+  } 
+  finally {
+    console.log('finished');
+    subLine.classList.add("fa-solid", "fa-align-center");
+    loader.classList.add("hide-loader");
+  }
 }
 
 export function renderTodo(todo) {
