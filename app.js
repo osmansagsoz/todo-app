@@ -78,9 +78,10 @@ export function getTodo() {
     });
 }
 
-export function deleteFromApi(query) {
-  fetch(`https://jsonplaceholder.typicode.com/todos/${query}`, {
+export async function deleteFromApi(query) {
+  const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${query}`, {
     method: 'DELETE',
   });
-  console.log('deleted from api');
+  const json = await response.json();
+  return json;
 }

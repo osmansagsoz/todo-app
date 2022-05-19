@@ -16,12 +16,13 @@ doneList.addEventListener("click", (e) => {
 });
 
 todoList.addEventListener("click", (e) => {
-  if (e.target.matches("button")) {
-    deleteTodo(e.target.value);
-  }
-  if (e.target.matches("input[type=radio] + label")) {
+  if (e.target.matches("input[type=checkbox] + label")) {
     markAsComplete(e.target.value);
+    console.log(e.target.value);
   }
+  // if (e.target.matches("button")) {
+  //   deleteTodo(e.target.value);
+  // }
 });
 
 todoList.addEventListener("todosUpdated", mirrorToLocalStorage);
