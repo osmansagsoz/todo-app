@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable import/extensions */
 import {
-  doneList, emptyState, loader, subHeader, subLine, subP, todoList
+  emptyState, loader, subHeader, subLine, subP, todoList
 } from './elements.js';
 import { deleteFromApi, postTodo } from './app.js';
 
@@ -44,6 +44,7 @@ export async function addTodo(e) {
 
   try {
     const result = await postTodo(todo);
+    console.log(result);
     renderTodo(result);}
   catch(error) {
     console.log('error');
@@ -60,21 +61,32 @@ export function renderTodo(todo) {
   const input = document.createElement('input');
   const myDiv = document.createElement('div');
   const label = document.createElement('label');
+  // const newForm = document.createElement('form');
+  const textInput = document.createElement('input');
   const button = document.createElement('button');
   li.dataset.todoid = todo.title;
   input.type = 'checkbox';
   input.value = todo.title;
-  input.id = todo.id;
+  input.id = todo.title;
   // input.name = todo.id;
   myDiv.className = 'box';
   myDiv.textContent = "\u2714";
-  label.htmlFor = todo.id;
+  // label.htmlFor = todo.title;
   label.textContent = todo.title;
   label.value = todo.title;
+  label.dataset.todoid = todo.title;
+  // newForm.className = 'list-form';
+  // newForm.dataset.todoid = todo.title;
+  textInput.type = 'text';
+  textInput.className = 'list-input';
+  textInput.dataset.todoid = todo.title;
   button.ariaLabel = 'remove';
   button.className = 'remove';
   button.value = todo.title;
   button.textContent = 'x';
+  // newForm.appendChild(textInput);
+  // label.appendChild(newForm);
+  label.appendChild(textInput);
   li.appendChild(input);
   li.appendChild(myDiv);
   li.appendChild(label);
@@ -82,6 +94,7 @@ export function renderTodo(todo) {
   todoList.appendChild(li);
   console.log(todos);
 }
+
 export async function deleteTodo(todoId) {
   const deleteLi = document.querySelector(`li[data-todoid='${todoId}']`);
   deleteLi.remove();
@@ -102,7 +115,7 @@ export async function deleteTodo(todoId) {
     subLine.classList.add("fa-solid", "fa-align-center");
     loader.classList.add("hide-loader");
 
-    if (todoList.innerHTML === '' && doneList.innerHTML === '') {
+    if (todoList.innerHTML === '') {
       emptyState.classList.remove('empty');
       subHeader.textContent = 'She done already done had herses!';
       subP.textContent = '';

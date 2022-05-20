@@ -170,6 +170,14 @@ input[type=checkbox] {
     padding: 0;
 }
 
+input[type=checkbox]:checked+.box {
+    background-color: var(--bblue);
+    color: var(--white);
+    box-shadow: 0 0 5px var(--white);
+    border: var(--white);
+    padding-top: 0.1em;
+}
+
 label {
     flex-basis: 82%;
     max-width: 410px;
@@ -182,14 +190,50 @@ label {
     background-color: var(--white);
     border-radius: 0.2em;
     box-shadow: 1px 1px 1px var(--swhite);
+    position: relative;
 }
 
-input[type=checkbox]:checked+.box {
-    background-color: var(--bblue);
-    color: var(--white);
-    box-shadow: 0 0 5px var(--white);
-    border: var(--white);
-    padding-top: 0.1em;
+.list-form {
+    display: none;
+    opacity: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    text-align: left;
+    font-size: 19px;
+    color: var(--bblue);
+    background-color: var(--white);
+    border-radius: 0.2em;
+    border: none;
+    position: absolute;
+    left: 0px;
+}
+
+.list-input {
+    display: none;
+    opacity: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    text-align: left;
+    font-size: 19px;
+    color: var(--bblue);
+    background-color: var(--white);
+    border-radius: 0.2em;
+    border: none;
+    position: absolute;
+    left: 0px;
+}
+
+.list-input:focus {
+    border: none;
+    cursor: text;
+    border-color: var(--swhite);
+}
+
+.show-input {
+    opacity: 100%;
+    display: inline-block;
 }
 
 /* button design */

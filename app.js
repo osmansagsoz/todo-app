@@ -51,19 +51,19 @@ export async function postTodo(query) {
     return json;
 }
 
-export function editTodo() {
-  // this is not working right now cause i had an issue with editing the existing li and label. I've googled but couldn't find the solution. planning to ask you on tuesday :)
-  fetch('https://jsonplaceholder.typicode.com/todos/1', {
+export async function editTodo() {
+  // again i couldn't get this to work because of the api
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
     method: 'PATCH',
     body: JSON.stringify({
-      title: 'foo',
+      title: query.title,
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+    const json = await response.json();
+    return json;
 }
 
 export function getTodo() {
