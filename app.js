@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/prefer-default-export */
 // functions to work with api
-import { input } from './elements.js';
+import { input, subHeader } from './elements.js';
 import { renderTodo, todos } from './lib.js';
 
 // export function postTodo(query, callback) {
@@ -75,6 +75,20 @@ export function getTodo() {
       renderTodo(json);
       todos.push(json);
       input.value = '';
+      subHeader.classList.add("info");
+    subHeader.textContent = 'Here is your new todo';
+    setTimeout(() => {
+      subHeader.textContent = '';
+      subHeader.classList.remove("info");
+    }, 3000);
+    })
+    .catch((err) => {
+      subHeader.classList.add("info");
+    subHeader.textContent = 'Something went wrong!';
+    setTimeout(() => {
+      subHeader.textContent = '';
+      subHeader.classList.remove("info");
+    }, 3000);
     });
 }
 

@@ -45,9 +45,21 @@ export async function addTodo(e) {
   try {
     const result = await postTodo(todo);
     console.log(result);
-    renderTodo(result);}
+    renderTodo(result);
+    subHeader.classList.add("info");
+    subHeader.textContent = 'todo posted to API';
+    setTimeout(() => {
+      subHeader.textContent = '';
+      subHeader.classList.remove("info");
+    }, 3000);
+  }
   catch(error) {
-    console.log('error');
+    subHeader.classList.add("info");
+    subHeader.textContent = 'Something went wrong!';
+    setTimeout(() => {
+      subHeader.textContent = '';
+      subHeader.classList.remove("info");
+    }, 3000);
   } 
   finally {
     console.log('finished');
@@ -107,11 +119,22 @@ export async function deleteTodo(todoId) {
 
   try {
     const result = await deleteFromApi(todoId);
+    subHeader.classList.add("info");
+    subHeader.textContent = 'todo deleted from API';
+    setTimeout(() => {
+      subHeader.textContent = '';
+      subHeader.classList.remove("info");
+    }, 3000);
     return result;
+    
   } catch(error) {
-    console.log('error');
+    subHeader.classList.add("info");
+    subHeader.textContent = 'Something went wrong!';
+    setTimeout(() => {
+      subHeader.textContent = '';
+      subHeader.classList.remove("info");
+    }, 3000);
   } finally {
-    console.log('deleted from api');
     subLine.classList.add("fa-solid", "fa-align-center");
     loader.classList.add("hide-loader");
 

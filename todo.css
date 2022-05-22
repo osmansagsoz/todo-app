@@ -113,6 +113,13 @@ li {
     animation-delay: 0.2s;
 }
 
+.info {
+    color: var(--grey);
+    animation: h1-load 300ms ease-out;
+    animation-fill-mode: forwards;
+    transform: scale(0);
+}
+
 /* text design */
 
 .js-input {
@@ -193,7 +200,7 @@ label {
     position: relative;
 }
 
-.list-form {
+/* .list-form {
     display: none;
     opacity: 100%;
     width: 100%;
@@ -207,7 +214,7 @@ label {
     border: none;
     position: absolute;
     left: 0px;
-}
+} */
 
 .list-input {
     display: none;
