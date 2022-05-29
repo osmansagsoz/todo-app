@@ -6,7 +6,7 @@
 //     const endpoint = await fetch('https://api.todoist.com/rest/v1/tasks', {
 //         method: 'GET',
 //         headers: {
-//             'Authorization': 'Bearer 77d5cbd9bfbf9f5c1e77d0facf68f8cb0935396e'
+//             'Authorization': 'Bearer 7token'
 //         }
 //     },)
 //     const json = await endpoint.json();
