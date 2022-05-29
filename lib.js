@@ -100,6 +100,8 @@ export async function deleteTodo(todoId) {
   deleteLi.remove();
 
   todos = todos.filter((todo) => todoId !== todo.id);
+  todoList.dispatchEvent(new CustomEvent('todosUpdated'));
+  console.log(todos);
 
   console.log('deleting todo from api');
   subLine.classList.remove("fa-solid", "fa-align-center");
@@ -134,6 +136,4 @@ export async function deleteTodo(todoId) {
     }, 3500); 
   }
   
-
-  todoList.dispatchEvent(new CustomEvent('itemsUpdated'));
 }

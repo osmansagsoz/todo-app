@@ -1,11 +1,11 @@
 /* eslint-disable import/extensions */
 import { addTodo, todos } from "./lib.js";
-import { emptyState, todoForm, subLine, loader, subHeader } from "./elements.js";
+import { emptyState, todoList, subLine, loader, subHeader } from "./elements.js";
 import { editTodo } from "./app.js";
 
 export function markAsComplete(title) {
   const todoRef = todos.find((todo) => todo.title === title);
-  todoRef.complete = !todoRef.complete;
+  todoRef.completed = !todoRef.completed;
 
   // showFinished(title);
 }
@@ -31,6 +31,8 @@ export function edit(id) {
 
         const toUpdate = todos.find((todo) => todo.id === id);
         toUpdate.title = newTitle;
+        todoList.dispatchEvent(new CustomEvent('todosUpdated'));
+        console.log(todos);
 
         currentInput.classList.remove("show-input");
         currentSpan.textContent = newTitle;
