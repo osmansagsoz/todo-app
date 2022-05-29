@@ -223,13 +223,18 @@ label {
     height: 100%;
     margin: 0;
     text-align: left;
+    font-family: var(--myfont);
     font-size: 19px;
     color: var(--bblue);
     background-color: var(--white);
     border-radius: 0.2em;
-    border: none;
+    border: 3px solid red;
     position: absolute;
     left: 0px;
+}
+
+.todo-list span {
+    position: relative;
 }
 
 .list-input:focus {

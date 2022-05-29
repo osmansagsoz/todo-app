@@ -16,7 +16,7 @@ export async function addTodo(e) {
   const todo = {
     title,
     id: `${Date.now()}`,
-    complete: false,
+    completed: false,
   };
 
   todos.push(todo);
@@ -28,19 +28,6 @@ export async function addTodo(e) {
   console.log('start posting todo');
   subLine.classList.remove("fa-solid", "fa-align-center");
   loader.classList.remove("hide-loader");
-
-  // postTodo(todo, (error, result) => {
-  //   console.log('posting todo');
-  //   if(error) {
-  //     console.log('Something went wrong!');
-  //   } else {
-  //     renderTodo(result);
-  //   }
-  // });
-
-  // postTodo2(todo)
-  // .then(result => renderTodo(result))
-  // .catch(err => console.log('error'));
 
   try {
     const result = await postTodo(todo);
@@ -73,31 +60,32 @@ export function renderTodo(todo) {
   const input = document.createElement('input');
   const myDiv = document.createElement('div');
   const label = document.createElement('label');
-  // const newForm = document.createElement('form');
+  const mySpan = document.createElement('span');
   const textInput = document.createElement('input');
   const button = document.createElement('button');
-  li.dataset.todoid = todo.title;
+  li.dataset.todoid = todo.id;
   input.type = 'checkbox';
   input.value = todo.title;
-  input.id = todo.title;
-  // input.name = todo.id;
+  input.id = todo.id;
   myDiv.className = 'box';
   myDiv.textContent = "\u2714";
-  // label.htmlFor = todo.title;
-  label.textContent = todo.title;
-  label.value = todo.title;
-  label.dataset.todoid = todo.title;
-  // newForm.className = 'list-form';
-  // newForm.dataset.todoid = todo.title;
+  label.value = todo.id;
+  label.dataset.todoid = todo.id;
+  mySpan.textContent = todo.title;
+  mySpan.dataset.todoid = todo.id;
+  mySpan.className = 'list-span';
   textInput.type = 'text';
   textInput.className = 'list-input';
-  textInput.dataset.todoid = todo.title;
+  textInput.dataset.todoid = todo.id;
+  textInput.value = todo.title;
+  // textInput.id = todo.id;
   button.ariaLabel = 'remove';
   button.className = 'remove';
-  button.value = todo.title;
+  button.value = todo.id;
   button.textContent = 'x';
   // newForm.appendChild(textInput);
   // label.appendChild(newForm);
+  label.appendChild(mySpan);
   label.appendChild(textInput);
   li.appendChild(input);
   li.appendChild(myDiv);
@@ -137,12 +125,13 @@ export async function deleteTodo(todoId) {
   } finally {
     subLine.classList.add("fa-solid", "fa-align-center");
     loader.classList.add("hide-loader");
-
-    if (todoList.innerHTML === '') {
-      emptyState.classList.remove('empty');
-      subHeader.textContent = 'She done already done had herses!';
-      subP.textContent = '';
-    }
+    setTimeout(() => {
+      if (todoList.children.length === 0) {
+        emptyState.classList.remove('empty');
+        subHeader.textContent = 'She done already done had herses!';
+        subP.textContent = '';
+      }
+    }, 3500); 
   }
   
 

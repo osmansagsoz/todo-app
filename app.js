@@ -3,45 +3,16 @@
 // functions to work with api
 import { input, subHeader } from './elements.js';
 import { renderTodo, todos } from './lib.js';
+import { edit } from './handlers.js';
 
-// export function postTodo(query, callback) {
-//   fetch('https://jsonplaceholder.typicode.com/todos', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       title: query.title,
-//       userId: 1,
-//     }),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((json) => callback(null, json))
-//     .catch((error) => callback(error, null));
-// }
-
-// export function postTodo2(query) {
-//   return fetch('https://jsonplaceholder.typicode.com/todos', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       title: query.title,
-//       userId: 1,
-//     }),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8',
-//     },
-//   })
-//     .then((response) => response.json())
-
-    
-// }
 
 export async function postTodo(query) {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+  const response = await fetch('https://todo-api-for-todos.herokuapp.com/todos', {
     method: 'POST',
     body: JSON.stringify({
       title: query.title,
-      userId: 1,
+      id: query.id,
+      completed: false
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
@@ -51,12 +22,11 @@ export async function postTodo(query) {
     return json;
 }
 
-export async function editTodo() {
-  // again i couldn't get this to work because of the api
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
+export async function editTodo(query) {
+  const response = await fetch(`https://todo-api-for-todos.herokuapp.com/todos/${query.id}`, {
     method: 'PATCH',
     body: JSON.stringify({
-      title: query.title,
+      title: query.title
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
@@ -66,34 +36,19 @@ export async function editTodo() {
     return json;
 }
 
-export function getTodo() {
-  // for getting a new todo you need to enter a number between 1-200 in input and click get todo button cause api works with id
-  const query = input.value;
-  fetch(`https://jsonplaceholder.typicode.com/todos/${query}`)
-    .then((response) => response.json())
-    .then((json) => {
-      renderTodo(json);
-      todos.push(json);
-      input.value = '';
-      subHeader.classList.add("info");
-    subHeader.textContent = 'Here is your new todo';
-    setTimeout(() => {
-      subHeader.textContent = '';
-      subHeader.classList.remove("info");
-    }, 3000);
-    })
-    .catch((err) => {
-      subHeader.classList.add("info");
-    subHeader.textContent = 'Something went wrong!';
-    setTimeout(() => {
-      subHeader.textContent = '';
-      subHeader.classList.remove("info");
-    }, 3000);
-    });
+export async function getTodo() {
+  const response = await fetch('https://todo-api-for-todos.herokuapp.com/todos', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+          }
+      },)
+      const json = await response.json();
+      console.log(json);
 }
 
 export async function deleteFromApi(query) {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${query}`, {
+  const response = await fetch(`https://todo-api-for-todos.herokuapp.com/todos/${query}`, {
     method: 'DELETE',
   });
   const json = await response.json();

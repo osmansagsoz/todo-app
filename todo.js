@@ -27,6 +27,10 @@ todoList.addEventListener("click", (e) => {
     console.log(e.target.value);
     edit(e.target.value);
   }
+  if (e.target.matches(".list-span")) {
+    console.log(e.target.dataset.todoid);
+    edit(e.target.dataset.todoid);
+  }
 });
 
 todoList.addEventListener("todosUpdated", mirrorToLocalStorage);
