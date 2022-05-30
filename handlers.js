@@ -94,13 +94,15 @@ export async function showGottenTodos() {
     buttonWrapper.appendChild(addButton);
     buttonWrapper.appendChild(doneButton);
     modalInner.appendChild(buttonWrapper);
-    function getSelectValue(e) {
+    function getSelectValue() {
       const selectedValue = document.getElementById("todo-select").value;
       const selectedTodo = result.find(todo => todo.title === selectedValue);
       addButton.addEventListener('click', (e) => {
         if(e.target.matches(".add-button")) {
           e.preventDefault();
           renderTodo(selectedTodo);
+          todos.push(selectedTodo);
+          todoList.dispatchEvent(new CustomEvent('todosUpdated'));
           console.log(e.target);
         }
       });
@@ -112,19 +114,6 @@ export async function showGottenTodos() {
       })
     }
     selector.addEventListener('change', getSelectValue);
-
-    // selector.addEventListener('change', function(e) {
-    //   const selectedValue = document.getElementById("todo-select").value;
-    //   const selectedTodo = result.find(todo => todo.title === selectedValue);
-    //   this.addEventListener('click', (e) => {
-    //     if(e.target.matches(".add-button")) {
-    //       console.log(e.target, selectedTodo);
-    //       renderTodo(selectedTodo);
-    //     }
-    //   })
-    // })
-
-    
   } catch(error) {
     console.log(error);
     const selector = document.querySelector("#todo-select");
