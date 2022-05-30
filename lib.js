@@ -20,7 +20,6 @@ export async function addTodo(e) {
   };
 
   todos.push(todo);
-
   e.target.reset();
 
   todoList.dispatchEvent(new CustomEvent('todosUpdated'));

@@ -263,8 +263,7 @@ label {
     flex-basis: 8%;
 }
 
-.get-todo,
-.edit-todo {
+.get-todo {
     border-color: var(--nude);
     color: var(--grey);
     padding: 0.2em 0.3em 0.1em 0.3em;
@@ -275,6 +274,64 @@ label {
     opacity: 0.8;
 }
 
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.done-todo,
+.add-todo {
+    border-color: var(--nude);
+    color: var(--grey);
+    padding: 0.2em 0.3em 0.1em 0.3em;
+    border-radius: 0.2em;
+    cursor: pointer;
+    box-shadow: 0 0 5px var(--white);
+    font-family: var(--myfont);
+    opacity: 0.8;
+}
+
+/* modal design */
+
+.modal-outer {
+    display: flex;
+    background: hsla(180, 100%, 50%, 0.7);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-outer.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-inner {
+    background: var(--nude);
+    opacity: 0.8;
+    min-width: 200px;
+    max-width: 410px;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+#todo-select {
+    height: 2em;
+    font-family: var(--myfont);
+    margin-bottom: 115px;
+}
+
 /* footer design */
 
 footer {
@@ -283,6 +340,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 100px;
+    /* z-index: 1000; */
 }
 
 .gradient {

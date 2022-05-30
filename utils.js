@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { renderTodo, todos } from "./lib.js";
-import { todoList } from "./elements.js";
+import { modalInner, todoList } from "./elements.js";
 
 export function mirrorToLocalStorage() {
   console.info("Saving to localstorage");
@@ -14,4 +14,11 @@ export function restoreFromLocalStorage() {
     todos.push(...lsTodos);
     todos.map(todo => renderTodo(todo));
   }
+}
+
+export function showLoaderInModal() {
+  modalInner.innerHTML = `<div class="loader">
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>`;
 }

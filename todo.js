@@ -2,18 +2,12 @@
 import { addTodo, todos, deleteTodo } from "./lib.js";
 import { mirrorToLocalStorage, restoreFromLocalStorage } from "./utils.js";
 import {
-  todoForm, todoList, emptyState, getButton, editButton
+  todoForm, todoList, emptyState, getButton, editButton, modalOuter
 } from "./elements.js";
-import { edit, markAsComplete } from "./handlers.js";
+import { edit, markAsComplete, showGottenTodos } from "./handlers.js";
 import { getTodo } from "./app.js";
 
 todoForm.addEventListener("submit", addTodo);
-
-// doneList.addEventListener("click", (e) => {
-//   if (e.target.matches("button")) {
-//     deleteTodo(e.target.value);
-//   }
-// });
 
 todoList.addEventListener("click", (e) => {
   if (e.target.matches("input[type=checkbox]")) {
@@ -35,6 +29,13 @@ todoList.addEventListener("click", (e) => {
 
 todoList.addEventListener("todosUpdated", mirrorToLocalStorage);
 
-getButton.addEventListener("click", getTodo);
+getButton.addEventListener("click", showGottenTodos);
+
+modalOuter.addEventListener("click", (e) => {
+  const isOutside = !e.target.closest('.modal-inner');
+  if(isOutside) {
+    modalOuter.classList.remove('open');
+  }
+})
 
 restoreFromLocalStorage();

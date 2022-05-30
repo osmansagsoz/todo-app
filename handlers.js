@@ -1,7 +1,8 @@
 /* eslint-disable import/extensions */
-import { addTodo, todos } from "./lib.js";
-import { emptyState, todoList, subLine, loader, subHeader } from "./elements.js";
-import { editTodo } from "./app.js";
+import { addTodo, renderTodo, todos } from "./lib.js";
+import { emptyState, todoList, subLine, loader, subHeader, modalOuter, modalInner } from "./elements.js";
+import { editTodo, getTodo } from "./app.js";
+import { showLoaderInModal } from "./utils.js";
 
 export function markAsComplete(title) {
   const todoRef = todos.find((todo) => todo.title === title);
@@ -69,10 +70,64 @@ export function edit(id) {
   })
 }
 
+export async function showGottenTodos() {
+  modalOuter.classList.add("open");
+  showLoaderInModal();
+  try {
+    const result = await getTodo();
 
-// export function showFinished(title) {
-//   const doneTodo = document.querySelector(`li[data-todoid='${title}']`);
-//   doneTodo.remove();
-//   doneList.appendChild(doneTodo);
-//   emptyState.classList.add("empty");
-// }
+    modalInner.innerHTML = `<label for="todo-select">Choose existing todo</label>
+    <select name="gottenTodos" id="todo-select">`;
+    const selector = document.querySelector("#todo-select");
+    const gottenList = result.map(todo => {
+      return `<option value="${todo.title}">${todo.title}</option>`;
+    });
+    selector.innerHTML = gottenList;
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.className = 'button-wrapper';
+    const addButton = document.createElement('button');
+    addButton.className = 'add-button';
+    addButton.textContent = 'Add';
+    const doneButton = document.createElement('button');
+    doneButton.className = 'done-button';
+    doneButton.textContent = 'Done!';
+    buttonWrapper.appendChild(addButton);
+    buttonWrapper.appendChild(doneButton);
+    modalInner.appendChild(buttonWrapper);
+    function getSelectValue(e) {
+      const selectedValue = document.getElementById("todo-select").value;
+      const selectedTodo = result.find(todo => todo.title === selectedValue);
+      addButton.addEventListener('click', (e) => {
+        if(e.target.matches(".add-button")) {
+          e.preventDefault();
+          renderTodo(selectedTodo);
+          console.log(e.target);
+        }
+      });
+      doneButton.addEventListener('click', (e) => {
+        if(e.target.matches(".done-button")) {
+          e.preventDefault();
+          modalOuter.classList.remove("open");
+        }
+      })
+    }
+    selector.addEventListener('change', getSelectValue);
+
+    // selector.addEventListener('change', function(e) {
+    //   const selectedValue = document.getElementById("todo-select").value;
+    //   const selectedTodo = result.find(todo => todo.title === selectedValue);
+    //   this.addEventListener('click', (e) => {
+    //     if(e.target.matches(".add-button")) {
+    //       console.log(e.target, selectedTodo);
+    //       renderTodo(selectedTodo);
+    //     }
+    //   })
+    // })
+
+    
+  } catch(error) {
+    console.log(error);
+    const selector = document.querySelector("#todo-select");
+    selector.innerHTML = `<option value="Whopps!">Something went wrong!</option>`;
+  }
+}

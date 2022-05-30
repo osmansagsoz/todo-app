@@ -9,3 +9,5 @@ export const subLine = document.querySelector(".fa-solid");
 export const loader = document.querySelector(".loader");
 export const getButton = document.querySelector(".get-todo");
 export const editButton = document.querySelector(".edit-todo");
+export const modalOuter = document.querySelector(".modal-outer");
+export const modalInner = document.querySelector(".modal-inner");

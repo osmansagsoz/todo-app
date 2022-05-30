@@ -45,6 +45,7 @@ export async function getTodo() {
       },)
       const json = await response.json();
       console.log(json);
+      return json;
 }
 
 export async function deleteFromApi(query) {
