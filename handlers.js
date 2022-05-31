@@ -106,14 +106,14 @@ export async function showGottenTodos() {
           console.log(e.target);
         }
       });
-      doneButton.addEventListener('click', (e) => {
-        if(e.target.matches(".done-button")) {
-          e.preventDefault();
-          modalOuter.classList.remove("open");
-        }
-      })
     }
     selector.addEventListener('change', getSelectValue);
+    doneButton.addEventListener('click', (e) => {
+      if(e.target.matches(".done-button")) {
+        e.preventDefault();
+        modalOuter.classList.remove("open");
+      }
+    })
   } catch(error) {
     console.log(error);
     const selector = document.querySelector("#todo-select");
