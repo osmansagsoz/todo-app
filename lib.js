@@ -4,6 +4,7 @@ import {
   emptyState, loader, subHeader, subLine, subP, todoList
 } from './elements.js';
 import { deleteFromApi, postTodo } from './app.js';
+import { removeFromLocalStorage } from './utils.js';
 
 export let todos = [];
 
@@ -64,7 +65,7 @@ export function renderTodo(todo) {
   const button = document.createElement('button');
   li.dataset.todoid = todo.id;
   input.type = 'checkbox';
-  input.value = todo.title;
+  input.value = todo.id;
   input.id = todo.id;
   myDiv.className = 'box';
   myDiv.textContent = "\u2714";
@@ -98,11 +99,13 @@ export async function deleteTodo(todoId) {
   const deleteLi = document.querySelector(`li[data-todoid='${todoId}']`);
   deleteLi.remove();
 
-  todos = todos.filter((todo) => todoId !== todo.id);
+  todos = todos.filter((todo) => (todoId).toString() !== todo.id);
+  removeFromLocalStorage(todoId);
   todoList.dispatchEvent(new CustomEvent('todosUpdated'));
   console.log(todos);
 
-  console.log('deleting todo from api');
+  if(Number(todoId) > 100) {
+    console.log('deleting todo from api');
   subLine.classList.remove("fa-solid", "fa-align-center");
   loader.classList.remove("hide-loader");
 
@@ -133,6 +136,7 @@ export async function deleteTodo(todoId) {
         subP.textContent = '';
       }
     }, 3500); 
+  }
   }
   
 }

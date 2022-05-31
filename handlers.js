@@ -2,13 +2,13 @@
 import { addTodo, renderTodo, todos } from "./lib.js";
 import { emptyState, todoList, subLine, loader, subHeader, modalOuter, modalInner } from "./elements.js";
 import { editTodo, getTodo } from "./app.js";
-import { showLoaderInModal } from "./utils.js";
+import { removeFromLocalStorage, showLoaderInModal } from "./utils.js";
 
-export function markAsComplete(title) {
-  const todoRef = todos.find((todo) => todo.title === title);
+export function markAsComplete(id) {
+  const todoRef = todos.find((todo) => todo.id === id);
   todoRef.completed = !todoRef.completed;
-
-  // showFinished(title);
+  console.log(todos);
+  todoList.dispatchEvent(new CustomEvent('todosUpdated'));
 }
 
 export function edit(id) {
