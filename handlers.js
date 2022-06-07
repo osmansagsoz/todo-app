@@ -94,20 +94,19 @@ export async function showGottenTodos() {
     buttonWrapper.appendChild(addButton);
     buttonWrapper.appendChild(doneButton);
     modalInner.appendChild(buttonWrapper);
-    function getSelectValue() {
-      const selectedValue = document.getElementById("todo-select").value;
-      const selectedTodo = result.find(todo => todo.title === selectedValue);
+    
       addButton.addEventListener('click', (e) => {
         if(e.target.matches(".add-button")) {
           e.preventDefault();
+          const selectedValue = document.getElementById("todo-select").value;
+          const selectedTodo = result.find(todo => todo.title === selectedValue);
           renderTodo(selectedTodo);
           todos.push(selectedTodo);
           todoList.dispatchEvent(new CustomEvent('todosUpdated'));
-          console.log(e.target);
+          console.log(e.target.value);
         }
       });
-    }
-    selector.addEventListener('change', getSelectValue);
+    
     doneButton.addEventListener('click', (e) => {
       if(e.target.matches(".done-button")) {
         e.preventDefault();
@@ -120,3 +119,4 @@ export async function showGottenTodos() {
     selector.innerHTML = `<option value="Whopps!">Something went wrong!</option>`;
   }
 }
+
