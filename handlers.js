@@ -5,7 +5,7 @@ import { editTodo, getTodo } from "./app.js";
 import { removeFromLocalStorage, showLoaderInModal } from "./utils.js";
 
 export function markAsComplete(id) {
-  const todoRef = todos.find((todo) => todo.id === id);
+  const todoRef = todos.find((todo) => (todo.id).toString() === id);
   todoRef.completed = !todoRef.completed;
   console.log(todos);
   todoList.dispatchEvent(new CustomEvent('todosUpdated'));

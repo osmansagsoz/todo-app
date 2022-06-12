@@ -11,8 +11,8 @@ todoForm.addEventListener("submit", addTodo);
 
 todoList.addEventListener("click", (e) => {
   if (e.target.matches("input[type=checkbox]")) {
+    console.log(e.target, e.target.value);
     markAsComplete(e.target.value);
-    console.log(e.target, e.currentTarget);
   }
   if (e.target.matches("button")) {
     deleteTodo(e.target.value);
